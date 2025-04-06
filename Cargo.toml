@@ -1,0 +1,17 @@
+[package]
+name = "masonry-concrete"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+egui_mobius_reactive = {version = "0.3.0-alpha.28"}
+egui_mobius_widgets = {version = "0.3.0-alpha.28"}
+egui_mobius = {version = "0.3.0-alpha.28"}
+
+masonry = { git = "https://github.com/linebender/xilem.git", branch = "main" }
+winit = "0.30.5"
+parley = "0.3.0"
+smallvec = "1.15.0"
+tracing = "0.1.41"
+vello = "0.4.1"
+accesskit = "0.18.0"
