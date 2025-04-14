@@ -25,18 +25,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d3d3b8f9bae46a948369bc4a03e815d4ed6d616bd00de4051133a5019dc31c5a"
 
 [[package]]
-name = "accesskit"
-version = "0.18.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "becf0eb5215b6ecb0a739c31c21bd83c4f326524c9b46b7e882d77559b60a529"
-
-[[package]]
 name = "accesskit_atspi_common"
 version = "0.10.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7c5dd55e6e94949498698daf4d48fb5659e824d7abec0d394089656ceaf99d4f"
 dependencies = [
- "accesskit 0.17.1",
+ "accesskit",
  "accesskit_consumer",
  "atspi-common",
  "serde",
@@ -50,7 +44,7 @@ version = "0.26.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f47983a1084940ba9a39c077a8c63e55c619388be5476ac04c804cfbd1e63459"
 dependencies = [
- "accesskit 0.17.1",
+ "accesskit",
  "hashbrown",
  "immutable-chunkmap",
 ]
@@ -61,7 +55,7 @@ version = "0.18.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7329821f3bd1101e03a7d2e03bd339e3ac0dc64c70b4c9f9ae1949e3ba8dece1"
 dependencies = [
- "accesskit 0.17.1",
+ "accesskit",
  "accesskit_consumer",
  "hashbrown",
  "objc2 0.5.2",
@@ -75,7 +69,7 @@ version = "0.13.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fcee751cc20d88678c33edaf9c07e8b693cd02819fe89053776f5313492273f5"
 dependencies = [
- "accesskit 0.17.1",
+ "accesskit",
  "accesskit_atspi_common",
  "async-channel",
  "async-executor",
@@ -93,7 +87,7 @@ version = "0.24.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "24fcd5d23d70670992b823e735e859374d694a3d12bfd8dd32bd3bd8bedb5d81"
 dependencies = [
- "accesskit 0.17.1",
+ "accesskit",
  "accesskit_consumer",
  "hashbrown",
  "paste",
@@ -108,7 +102,7 @@ version = "0.23.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6a6a48dad5530b6deb9fc7a52cc6c3bf72cdd9eb8157ac9d32d69f2427a5e879"
 dependencies = [
- "accesskit 0.17.1",
+ "accesskit",
  "accesskit_macos",
  "accesskit_unix",
  "accesskit_windows",
@@ -926,7 +920,7 @@ version = "0.31.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "25dd34cec49ab55d85ebf70139cb1ccd29c977ef6b6ba4fe85489d6877ee9ef3"
 dependencies = [
- "accesskit 0.17.1",
+ "accesskit",
  "ahash",
  "bitflags 2.9.0",
  "emath",
@@ -1996,15 +1990,23 @@ dependencies = [
 name = "masonry-concrete"
 version = "0.1.0"
 dependencies = [
- "accesskit 0.18.0",
  "egui_mobius",
  "egui_mobius_reactive",
  "egui_mobius_widgets",
  "masonry",
  "parley",
- "smallvec",
- "tracing",
- "vello",
+ "winit",
+]
+
+[[package]]
+name = "masonry-reactive"
+version = "0.1.0"
+dependencies = [
+ "egui_mobius",
+ "egui_mobius_reactive",
+ "egui_mobius_widgets",
+ "masonry",
+ "parley",
  "winit",
 ]
 
@@ -2013,7 +2015,7 @@ name = "masonry_core"
 version = "0.2.0"
 source = "git+https://github.com/linebender/xilem.git?branch=main#324ff2444b92eedd7771010c46f42ff6120712da"
 dependencies = [
- "accesskit 0.17.1",
+ "accesskit",
  "anymap3",
  "cursor-icon",
  "dpi",
@@ -2662,7 +2664,7 @@ version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0d1c2b33b240c246f06cfceac48dc6c96040cb177d2aa5348899982b298b5577"
 dependencies = [
- "accesskit 0.17.1",
+ "accesskit",
  "fontique",
  "hashbrown",
  "peniko",
@@ -3414,6 +3416,18 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "06794f8f6c5c898b3275aebefa6b8a1cb24cd2c6c79397ab15774837a0bc5755"
 dependencies = [
  "winapi-util",
+]
+
+[[package]]
+name = "theme-switcher"
+version = "0.1.0"
+dependencies = [
+ "egui_mobius",
+ "egui_mobius_reactive",
+ "egui_mobius_widgets",
+ "masonry",
+ "parley",
+ "winit",
 ]
 
 [[package]]

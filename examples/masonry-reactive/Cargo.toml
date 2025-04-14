@@ -1,0 +1,13 @@
+[package]
+name = "masonry-reactive"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+egui_mobius_reactive = {workspace = true}
+egui_mobius_widgets = {workspace = true}
+egui_mobius = {workspace = true}
+#xilem   = { git = "https://github.com/linebender/xilem.git", branch = "main" }
+masonry    = {workspace = true}
+winit      = {workspace = true}
+parley     = {workspace = true}

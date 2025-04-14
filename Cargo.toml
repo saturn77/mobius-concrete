@@ -1,9 +1,18 @@
-[package]
-name = "masonry-concrete"
-version = "0.1.0"
-edition = "2021"
+[workspace]
+members = [ "crates/mobius-concrete", 
+    "examples/masonry-reactive",
+    "examples/theme-switcher",
+]
 
-[dependencies]
+resolver = "2"
+
+[workspace.package]
+edition = "2024"
+license = "MIT"
+rust-version = "1.85"
+version = "0.1.0-alpha"
+
+[workspace.dependencies]
 egui_mobius_reactive = {version = "0.3.0-alpha.28"}
 egui_mobius_widgets = {version = "0.3.0-alpha.28"}
 egui_mobius = {version = "0.3.0-alpha.28"}
