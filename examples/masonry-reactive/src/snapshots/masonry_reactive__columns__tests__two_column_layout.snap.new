@@ -1,0 +1,13 @@
+---
+source: examples/masonry-reactive/src/columns.rs
+assertion_line: 94
+expression: harness.root_widget()
+---
+TwoColumnLayout(
+    Flex(
+        Label<Left>,
+    ),
+    Flex(
+        Label<Right>,
+    ),
+)

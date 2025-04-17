@@ -18,10 +18,15 @@ use winit::window::Window;
 use egui_mobius_reactive::*;
 use std::sync::Arc;
 
+// other imports for this crate
+mod columns;
+    use columns::TwoColumnLayout;
+
 const VERTICAL_WIDGET_SPACING: f64 = 40.0;
 
 pub struct AppState {
     click_count : Dynamic<i32>,
+    formatted   : Derived<String>,
     doubled     : Derived<i32>,
     sum         : Derived<i32>,
     message     : Dynamic<String>,
@@ -30,7 +35,14 @@ pub struct AppState {
 impl AppState {
     pub fn new() -> Self {
         let click_count = Dynamic::new(0);
+        let click_count_arc = Arc::new(click_count.clone());
         let doubled = click_count.doubled();
+
+        let formatted : Derived<String> = Derived::new(&[click_count_arc.clone()], move || {
+            let val = *click_count_arc.lock();
+            format!("Count: {}", val)
+        });
+
         let sum = click_count.clone() + doubled.clone();
         let message = Dynamic::new("Click the button!".to_string());
 
@@ -42,6 +54,7 @@ impl AppState {
 
         Self {
             click_count,
+            formatted, 
             doubled,
             sum, 
             message,
@@ -63,40 +76,22 @@ impl AppDriver for Driver {
     fn on_action(&mut self, ctx: &mut DriverCtx<'_>, _widget_id: WidgetId, action: Action) {
         match action {
             Action::ButtonPressed(_) => {
-                // First update the count
+                // Update the state 
                 let count = self.state.click_count.get() + 1;
                 self.state.click_count.set(count);
                 
                 // Small delay to let the reactive system update
                 std::thread::sleep(std::time::Duration::from_micros(200));
                 
-                // Now get the doubled value after it's had time to update
+                // Get updated values - note use of ReactiveMath to get the derived values
                 let doubled = self.state.doubled.get();
-                println!("Count: {}, Doubled: {}", count, doubled);
-                self.state.message.set(format!("Count: {} × 2 = {}", count, doubled));
+                let sum = self.state.sum.get();
                 
-                // Make a "separate" sum message to be displayed 
-                let sum_string = format!("Derived Value `sum` = {}", self.state.sum.get());
+                println!("on action : Count: {}, Doubled: {}, Sum: {}", count, doubled, sum);
+                self.state.message.set(format!("Count: {}", count));
                 
-                // Force UI update
-                ctx.render_root().edit_root_widget(|mut root| {
-                    let mut root = root.downcast::<RootWidget<Flex>>();
-                    let mut flex = RootWidget::child_mut(&mut root);
-                    // Clear existing children and rebuild
-                    Flex::clear(&mut flex);
-                    Flex::add_spacer(&mut flex, VERTICAL_WIDGET_SPACING);
-                    Flex::add_child(&mut flex, Label::new(self.state.message.get())
-                        .with_style(StyleProperty::FontSize(24.0))
-                        .with_style(StyleProperty::FontWeight(FontWeight::BOLD)));
-                    Flex::add_spacer(&mut flex, VERTICAL_WIDGET_SPACING);
+                // Request a full update - let the rebuilt TwoColumnLayout handle the layout
 
-                    Flex::add_child(&mut flex, Label::new(sum_string)
-                    .with_style(StyleProperty::FontSize(24.0))
-                    .with_style(StyleProperty::FontWeight(FontWeight::BOLD)));
-                    Flex::add_spacer(&mut flex, VERTICAL_WIDGET_SPACING);
-                    
-                    Flex::add_child(&mut flex, Button::new("Click me!"));
-                });
             }
             action => {
                 eprintln!("Unexpected action {action:?}");
@@ -105,26 +100,50 @@ impl AppDriver for Driver {
     }
 }
 
+// In your main.rs, modify the following sections:
+// Import Container widget if needed
+// Removed unused import as `Container` does not exist in `masonry::widgets`
 fn main() {
     let state = Arc::new(AppState::new());
 
-    let label = Label::new(state.message.get())
-        .with_style(StyleProperty::FontSize(32.0))
-        .with_style(StyleProperty::FontWeight(FontWeight::BOLD));
-    let button = Button::new("Click me!");
+    let state_count_clone = state.click_count.clone();
+    let state_count_arc : Arc<Dynamic<i32>> = Arc::new(state_count_clone.clone());
 
-    // Arrange the two widgets vertically, with some padding
-    let main_widget = Flex::column()
-        .with_child(label)
+
+    
+    // Create left column
+    let left_column = Flex::column()
+        .with_child(Label::new(state.message.get())
+            .with_style(StyleProperty::FontSize(24.0))
+            .with_style(StyleProperty::FontWeight(FontWeight::BOLD)))
         .with_spacer(VERTICAL_WIDGET_SPACING)
-        .with_child(button);
-
-    let window_size = LogicalSize::new(400.0, 400.0);
+        .with_child(Label::new("Left column info")
+            .with_style(StyleProperty::FontSize(16.0)))
+        .with_spacer(VERTICAL_WIDGET_SPACING)
+        .with_child(Button::new("Click me!"));
+    
+    // Create right column
+    let right_column = Flex::column()
+        .with_child(Label::new("Right column stats")
+            .with_style(StyleProperty::FontSize(16.0)))
+        .with_spacer(VERTICAL_WIDGET_SPACING)
+        .with_child(Label::new(state.formatted.clone().get())
+            .with_style(StyleProperty::FontSize(20.0)))
+        .with_spacer(VERTICAL_WIDGET_SPACING)
+        .with_child(Label::new(format!("Sum: {}", state.sum.get()))
+            .with_style(StyleProperty::FontSize(20.0)));
+    
+    // Create two-column layout using our custom container
+    let main_widget = TwoColumnLayout::new(left_column, right_column, 20.0);
+    
+    // Window setup
+    let window_size = LogicalSize::new(600.0, 400.0);
     let window_attributes = Window::default_attributes()
-        .with_title("Reactive Counter")
+        .with_title("Reactive Two-Column Layout")
         .with_resizable(true)
         .with_min_inner_size(window_size);
-
+    
+    // Run application
     masonry::app::run(
         masonry::app::EventLoop::with_user_event(),
         window_attributes,

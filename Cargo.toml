@@ -13,14 +13,24 @@ rust-version = "1.85"
 version = "0.1.0-alpha"
 
 [workspace.dependencies]
-egui_mobius_reactive = {version = "0.3.0-alpha.28"}
-egui_mobius_widgets = {version = "0.3.0-alpha.28"}
-egui_mobius = {version = "0.3.0-alpha.28"}
+egui_mobius_reactive = {version = "0.3.0-alpha.29"}
+egui_mobius_widgets = {version = "0.3.0-alpha.29"}
+egui_mobius = {version = "0.3.0-alpha.29"}
 
 masonry = { git = "https://github.com/linebender/xilem.git", branch = "main" }
+#masonry = { version = "0.2.0"}
+
 winit = "0.30.5"
 parley = "0.3.0"
 smallvec = "1.15.0"
 tracing = "0.1.41"
 vello = "0.4.1"
-accesskit = "0.18.0"
+accesskit = "0.17.0"
+accesskit_winit = "0.23.0"
+insta = "1.42.2"
+# [profile.dev]
+# opt-level = 0
+# [profile.release]
+# opt-level = 3
+# [profile.test]
+# opt-level = 3

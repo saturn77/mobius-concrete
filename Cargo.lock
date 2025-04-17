@@ -704,6 +704,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "console"
+version = "0.15.11"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "054ccb5b10f9f2cbf51eb355ca1d05c2d279ce1804688d0db74b4733a5aeafd8"
+dependencies = [
+ "encode_unicode",
+ "libc",
+ "once_cell",
+ "windows-sys 0.59.0",
+]
+
+[[package]]
 name = "core-foundation"
 version = "0.9.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -990,9 +1002,9 @@ dependencies = [
 
 [[package]]
 name = "egui_mobius"
-version = "0.3.0-alpha.28"
+version = "0.3.0-alpha.29"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "771263bed71f132661b8fa5754d3131d0cd5877e7609396fcf0952ae4042810e"
+checksum = "5ab33811c775b3bbebb6db3c6a8112fc6a48bd6f238a35cb67dc088cd58703c9"
 dependencies = [
  "crossbeam-channel",
  "eframe",
@@ -1007,18 +1019,20 @@ dependencies = [
 
 [[package]]
 name = "egui_mobius_reactive"
-version = "0.3.0-alpha.28"
+version = "0.3.0-alpha.29"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "412eb5a776b172eae3902d49a895cd80b1658e19350e03a489f17776d200caca"
+checksum = "670ec7bb0cb16c57bc5cf9223189401e5c4c431581a237ce852e8c261fbe4932"
 dependencies = [
+ "egui",
+ "egui_mobius",
  "parking_lot",
 ]
 
 [[package]]
 name = "egui_mobius_widgets"
-version = "0.3.0-alpha.28"
+version = "0.3.0-alpha.29"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "090819fa2f76c24345ecbb4dfed9ffec5990205f7b6536862b28382f7fecc43f"
+checksum = "e009af53e6804a1e38b8584ee9149fa2be5c95cba8ffcd6e2a56f7f0acd4845e"
 dependencies = [
  "eframe",
  "egui",
@@ -1033,6 +1047,12 @@ checksum = "9e4cadcff7a5353ba72b7fea76bf2122b5ebdbc68e8155aa56dfdea90083fe1b"
 dependencies = [
  "bytemuck",
 ]
+
+[[package]]
+name = "encode_unicode"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "34aa73646ffb006b8f5147f3dc182bd4bcb190227ce861fc4a4844bf8e3cb2c0"
 
 [[package]]
 name = "endi"
@@ -1779,6 +1799,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "insta"
+version = "1.42.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "50259abbaa67d11d2bcafc7ba1d094ed7a0c70e3ce893f0d0997f73558cb3084"
+dependencies = [
+ "console",
+ "linked-hash-map",
+ "once_cell",
+ "pin-project",
+ "similar",
+]
+
+[[package]]
 name = "itoa"
 version = "1.0.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1922,6 +1955,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "linked-hash-map"
+version = "0.5.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0717cef1bc8b636c6e1c1bbdefc09e6322da8a9321966e8928ef80d20f7f770f"
+
+[[package]]
 name = "linux-raw-sys"
 version = "0.4.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1973,7 +2012,7 @@ dependencies = [
 [[package]]
 name = "masonry"
 version = "0.2.0"
-source = "git+https://github.com/linebender/xilem.git?branch=main#324ff2444b92eedd7771010c46f42ff6120712da"
+source = "git+https://github.com/linebender/xilem.git?branch=main#3f92904fc409d60d01e02cb8e7fca6fbccb1e252"
 dependencies = [
  "accesskit_winit",
  "keyboard-types",
@@ -1995,6 +2034,7 @@ dependencies = [
  "egui_mobius_widgets",
  "masonry",
  "parley",
+ "smallvec",
  "winit",
 ]
 
@@ -2002,18 +2042,22 @@ dependencies = [
 name = "masonry-reactive"
 version = "0.1.0"
 dependencies = [
- "egui_mobius",
+ "accesskit",
+ "accesskit_winit",
  "egui_mobius_reactive",
- "egui_mobius_widgets",
+ "insta",
  "masonry",
  "parley",
+ "smallvec",
+ "tracing",
+ "vello",
  "winit",
 ]
 
 [[package]]
 name = "masonry_core"
 version = "0.2.0"
-source = "git+https://github.com/linebender/xilem.git?branch=main#324ff2444b92eedd7771010c46f42ff6120712da"
+source = "git+https://github.com/linebender/xilem.git?branch=main#3f92904fc409d60d01e02cb8e7fca6fbccb1e252"
 dependencies = [
  "accesskit",
  "anymap3",
@@ -3214,6 +3258,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d66dc143e6b11c1eddc06d5c423cfc97062865baf299914ab64caa38182078fe"
 
 [[package]]
+name = "similar"
+version = "2.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bbbb5d9659141646ae647b42fe094daf6c6192d1620870b449d9557f748b2daa"
+
+[[package]]
 name = "skrifa"
 version = "0.26.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3682,7 +3732,7 @@ dependencies = [
 [[package]]
 name = "tree_arena"
 version = "0.1.0"
-source = "git+https://github.com/linebender/xilem.git?branch=main#324ff2444b92eedd7771010c46f42ff6120712da"
+source = "git+https://github.com/linebender/xilem.git?branch=main#3f92904fc409d60d01e02cb8e7fca6fbccb1e252"
 dependencies = [
  "hashbrown",
 ]

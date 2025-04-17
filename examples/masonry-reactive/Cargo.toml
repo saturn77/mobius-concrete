@@ -5,9 +5,15 @@ edition = "2024"
 
 [dependencies]
 egui_mobius_reactive = {workspace = true}
-egui_mobius_widgets = {workspace = true}
-egui_mobius = {workspace = true}
+#egui_mobius_widgets = {workspace = true}
+#egui_mobius = {workspace = true}
 #xilem   = { git = "https://github.com/linebender/xilem.git", branch = "main" }
 masonry    = {workspace = true}
 winit      = {workspace = true}
 parley     = {workspace = true}
+smallvec   = {workspace = true}
+accesskit  = {workspace = true}
+accesskit_winit = {workspace = true}
+vello      = {workspace = true}
+tracing    = {workspace = true}
+insta      = {workspace = true}

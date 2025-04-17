@@ -11,3 +11,4 @@ egui_mobius = {workspace = true}
 masonry    = {workspace = true}
 winit      = {workspace = true}
 parley     = {workspace = true}
+smallvec.workspace = true
